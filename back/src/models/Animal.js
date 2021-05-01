@@ -20,7 +20,7 @@ const Animal = sequelize.define('Animal', {
         type: DataTypes.STRING,
     },
 
-    descicao: {
+    descricao: {
         type: DataTypes.TEXT,
     },
 

@@ -24,6 +24,11 @@ const Endereco = sequelize.define('Endereco', {
     cidade: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+
+    cep: {
+        type: DataTypes.STRING,
+        allowNull: false,
     }
 
 }, {

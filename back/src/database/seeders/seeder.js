@@ -1,11 +1,16 @@
 require('../../config/dotenv')();
 require('../../config/sequelize');
 
-//const seedModel = require('./Model');
+const seedUsers = require('./UserSeeder');
+const seedAnimal = require('./AnimalSeeder');
+const seedEndereco = require('./EnderecoSeeder');
 
 (async () => {
   try {
-    //await seedModel();
+    await seedEndereco();
+    await seedUsers();
+    await seedAnimal();
+    
 
   } catch(err) { console.log(err) }
 })();
