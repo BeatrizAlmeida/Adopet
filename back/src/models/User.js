@@ -36,9 +36,9 @@ const User = sequelize.define('User', {
 });
 
 User.associate = function(models) {
-    User.belongsTo(models.Endereco, {});
-    User.hasMany(models.Animal, { as: 'adotados'});
-    User.hasMany(models.Animal, { as: 'doados'});
+    User.belongsTo(models.Endereco);
+    User.hasMany(models.Animal, {as: 'adotados'});
+    User.hasMany(models.Animal, {as: 'doados'});
     User.belongsToMany(models.Animal, {through: 'Favoritar', as: 'favoritados'});
 }
 
