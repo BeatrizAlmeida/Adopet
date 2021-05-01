@@ -7,6 +7,11 @@ const Endereco = sequelize.define('Endereco', {
         allowNull: false,
     },
 
+    cep: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+
     complemento: {
         type: DataTypes.STRING,
     },
@@ -30,8 +35,8 @@ const Endereco = sequelize.define('Endereco', {
 });
 
 Endereco.associate = function(models) {
-    Endereco.hasMany(models.User, {});
-    Endereco.hasMany(models.Animal, {});
+    Endereco.hasMany(models.User);
+    Endereco.hasMany(models.Animal);
 }
 
 module.exports = Endereco;

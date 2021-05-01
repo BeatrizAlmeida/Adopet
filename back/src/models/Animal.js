@@ -20,7 +20,7 @@ const Animal = sequelize.define('Animal', {
         type: DataTypes.STRING,
     },
 
-    descicao: {
+    descricao: {
         type: DataTypes.TEXT,
     },
 
@@ -36,9 +36,9 @@ const Animal = sequelize.define('Animal', {
 });
 
 Animal.associate = function(models) {
-    Animal.belongsTo(models.Endereco, {});
-    Animal.belongsTo(models.User, { as: 'adotante'});
-    Animal.belongsTo(models.User, { as: 'doador'});
+    Animal.belongsTo(models.Endereco);
+    Animal.belongsTo(models.User, {as: 'adotante'});
+    Animal.belongsTo(models.User, {as: 'doador'});
     Animal.belongsToMany(models.User, {through: 'Favoritar', as: 'candidatos'}); 
 }
 
