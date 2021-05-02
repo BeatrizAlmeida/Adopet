@@ -7,9 +7,9 @@ const { Router } = require('express');
 const UserController = require('../controllers/UserController');
 const EnderecoController = require('../controllers/EnderecoController');
 const AnimalController = require('../controllers/AnimalController');
-//const AuthController = require('../controllers/AuthController');
+const AuthController = require('../controllers/AuthController');
 
-// const passport = require('passport');
+const passport = require('passport');
 // const adminMiddleware = require('../middlewares/admin');
 // const promoterMiddleware = require('../middlewares/promoter');
 
@@ -18,9 +18,9 @@ const router = Router();
 // const allUploads = upload.fields([{ name: 'photo', maxCount: 4 }]);
 
 // Rotas de Autenticacao
-// router.post('/register', AuthController.register);
-// router.post('/login', AuthController.login);
-// router.get('/getDetails', passport.authenticate('jwt', { session: false }), AuthController.getDetails);
+router.post('/register', AuthController.register);
+router.post('/login', AuthController.login);
+router.get('/getDetails', passport.authenticate('jwt', { session: false }), AuthController.getDetails);
 
 // Rotas de Usuário
 router.get('/users', UserController.index);

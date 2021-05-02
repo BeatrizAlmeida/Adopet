@@ -1,5 +1,5 @@
 const User = require('../models/User');
-//const Auth = require('../config/auth');
+const Auth = require('../config/auth');
 const Endereco = require('../models/Endereco');
 const sequelize = require("../config/sequelize");
 
@@ -23,9 +23,9 @@ const show = async(req,res) => {
 };
 
 const create = async(req,res) => {
-    // const generateHash = Auth.generateHash(req.body.password);
-    // const salt = generateHash.salt;
-    // const hash = generateHash.hash;
+    const generateHash = Auth.generateHash(req.body.senha);
+    const salt = generateHash.salt;
+    const hash = generateHash.hash;
 
     try {
         let endereco = await Endereco.findAll({
@@ -51,11 +51,10 @@ const create = async(req,res) => {
 
         const newUserData = {
             email: req.body.email,
-            // salt: salt,
-            // hash: hash,
+            salt: salt,
+            hash: hash,
             nome: req.body.nome,
             telefone: req.body.telefone,
-            senha: req.body.senha,
             biografia: req.body.biografia ? req.body.biografia : null,
             cpf: req.body.cpf,
             EnderecoId: endereco.id
