@@ -10,7 +10,8 @@ const faker = require('faker-br');
       email: faker.internet.email(),
       nome: faker.name.firstName(),
       telefone: faker.phone.phoneNumber(),
-      senha: faker.lorem.word(),
+      hash: faker.lorem.word(),
+      salt: faker.lorem.word(),
       cpf: faker.br.cpf(),
       EnderecoId: faker.random.number({min:1, max:10})
     });
