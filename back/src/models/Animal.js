@@ -2,10 +2,9 @@ const DataTypes = require("sequelize");
 const sequelize = require("../config/sequelize");
 
 const Animal = sequelize.define('Animal', {
-    status: {
+    especie: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "disponivel"
     },
 
     nome: {

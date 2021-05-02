@@ -1,6 +1,7 @@
 const Animal = require('../models/Animal');
 const Endereco = require('../models/Endereco');
 const sequelize = require("../config/sequelize");
+const {validationResult} = require('express-validator');
 
 const index = async(req,res) => {
     try {
@@ -23,6 +24,7 @@ const show = async(req,res) => {
 
 const create = async(req,res) => {
     try {
+        validationResult(req).throw();
         let endereco = await Endereco.findAll({
             where: {
                 cep: req.body.cep,
@@ -50,6 +52,7 @@ const create = async(req,res) => {
             raca: req.body.raca ? req.body.raca : null,
             porte: req.body.porte ? req.body.porte : null,
             descricao: req.body.descricao ? req.body.descricao : null,
+            especie: req.body.especie,
             EnderecoId: endereco.id
         }
 
@@ -64,6 +67,7 @@ const create = async(req,res) => {
 const update = async(req,res) => {
     const {id} = req.params;
     try {
+        validationResult(req).throw();
         const [updated] = await Animal.update(req.body, {where: {id: id}});
         console.log(updated,"UPDATED");
         if(updated) {

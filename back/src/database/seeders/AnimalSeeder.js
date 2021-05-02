@@ -7,7 +7,7 @@ const faker = require('faker-br');
 
   for (let i = 0; i < 10; i++) {
     animais.push({
-      status: "disponivel",
+      especie: "cachorro",
       nome: faker.name.firstName(),
       descricao: faker.lorem.words(),
       EnderecoId: faker.random.number({min:1, max:10}),

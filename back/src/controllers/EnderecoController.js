@@ -1,5 +1,6 @@
 const Endereco = require('../models/Endereco');
 const sequelize = require("../config/sequelize");
+const {validationResult} = require('express-validator');
 
 const index = async(req,res) => {
     try {
@@ -21,6 +22,7 @@ const show = async(req,res) => {
 };
 
 const create = async(req,res) => {
+    validationResult(req).throw();
     const newEnderecoData = {
         rua: req.body.rua,
         cep: req.body.cep,
@@ -39,6 +41,7 @@ const create = async(req,res) => {
 };
 
 const update = async(req,res) => {
+    validationResult(req).throw();
     const {id} = req.params;
     try {
         const [updated] = await Endereco.update(req.body, {where: {id: id}});

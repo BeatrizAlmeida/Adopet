@@ -1,7 +1,7 @@
 const { Router } = require('express');
 // const multer = require('multer');
 // const { model } = require('../config/sequelize');
-// const validators = require("../config/validators");
+ const validators = require("../config/validators");
 // const storage = require("../config/files");
 
 const UserController = require('../controllers/UserController');
@@ -25,8 +25,9 @@ const router = Router();
 // Rotas de Usuário
 router.get('/users', UserController.index);
 router.get('/users/:id', UserController.show);
-router.post('/users', UserController.create);
-router.put('/users/:id', UserController.update);
+router.put('/users/:id',validators.validateUser('update'), UserController.update);
+router.post('/users',validators.validateUser('create'), UserController.create);
+
 // router.put('/user/follow/:id', passport.authenticate('jwt', { session: false }), UserController.followEvent);
 // router.put('/user/unfollow/:id', passport.authenticate('jwt', { session: false }), UserController.unfollowEvent);
 // router.put('/user/attend/:id', passport.authenticate('jwt', { session: false }), UserController.attendEvent);
@@ -35,15 +36,15 @@ router.delete('/users/:id', UserController.destroy);
 // Rotas de Endereço
 router.get('/enderecos', EnderecoController.index);
 router.get('/enderecos/:id', EnderecoController.show);
-router.post('/enderecos', EnderecoController.create);
-router.put('/enderecos/:id', EnderecoController.update);
+router.post('/enderecos',validators.validateEndereco('create'), EnderecoController.create);
+router.put('/enderecos/:id',validators.validateAnimal('update'), EnderecoController.update);
 router.delete('/enderecos/:id', EnderecoController.destroy);
 
 // Rotas de Animais
 router.get('/pets', AnimalController.index);
 router.get('/pets/:id', AnimalController.show);
-router.post('/pets', AnimalController.create);
-router.put('/pets/:id', AnimalController.update);
+router.post('/pets',validators.validateAnimal('create'), AnimalController.create);
+router.put('/pets/:id',validators.validateAnimal('update'), AnimalController.update);
 router.delete('/pets/:id', AnimalController.destroy);
 
 module.exports = router;

@@ -2,6 +2,7 @@ const User = require('../models/User');
 //const Auth = require('../config/auth');
 const Endereco = require('../models/Endereco');
 const sequelize = require("../config/sequelize");
+const {validationResult} = require('express-validator');
 
 const index = async(req,res) => {
     try {
@@ -28,6 +29,7 @@ const create = async(req,res) => {
     // const hash = generateHash.hash;
 
     try {
+        validationResult(req).throw();
         let endereco = await Endereco.findAll({
             where: {
                 cep: req.body.cep,
@@ -70,6 +72,7 @@ const create = async(req,res) => {
 };
 
 const update = async(req,res) => {
+    validationResult(req).throw();
     const {id} = req.params;
     try {
         const [updated] = await User.update(req.body, {where: {id: id}});
