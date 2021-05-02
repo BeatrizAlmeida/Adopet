@@ -24,6 +24,7 @@ const show = async(req,res) => {
 
 const create = async(req,res) => {
     try {
+        
         validationResult(req).throw();
         let endereco = await Endereco.findAll({
             where: {
@@ -46,6 +47,13 @@ const create = async(req,res) => {
             endereco = await Endereco.create(newEnderecoData);
         }
 
+        console.log(req.file);
+        let path;
+        if(req.file){
+            path = process.env.APP_URL + "/uploads/" + req.file.filename;
+            console.log(path);
+        }
+
         const newAnimalData = {
             nome: req.body.nome ? req.body.nome : null,
             idade: req.body.idade ? req.body.idade : null,
@@ -53,14 +61,15 @@ const create = async(req,res) => {
             porte: req.body.porte ? req.body.porte : null,
             descricao: req.body.descricao ? req.body.descricao : null,
             especie: req.body.especie,
-            EnderecoId: endereco.id
+            EnderecoId: endereco.id,
+            foto: path
         }
 
         const animal = await Animal.create(newAnimalData);
         return res.status(201).json({animal});
     }
     catch(err){
-        return res.status(500).json({err});
+        return res.status(500).json(err+'!');
     }
 };
 
@@ -93,6 +102,25 @@ const destroy = async(req,res) => {
         return res.status(500).json({err});
     }
 };
+
+const addPhoto = async(req, event) => {
+        const id = req.params;
+        const animal = await Animal.findByPk(id);
+        
+		try{
+            if(req.file){
+                const path = process.env.APP_URL + "/uploads/" + photo.filename;
+                console.log(path);
+            }
+			animal.foto
+			await event.addPhotos(newPhoto);
+		} catch (err) {
+			console.log(err + "!")
+		  return false;
+		}
+	return true;
+}
+
 
 module.exports = {
     index,

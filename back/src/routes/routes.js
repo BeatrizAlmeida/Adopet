@@ -1,8 +1,10 @@
 const { Router } = require('express');
-// const multer = require('multer');
+
 // const { model } = require('../config/sequelize');
- const validators = require("../config/validators");
-// const storage = require("../config/files");
+const multer = require('multer');
+const storage = require("../config/files");
+const validators = require("../config/validators");
+const upload = multer({ storage: storage });
 
 const UserController = require('../controllers/UserController');
 const EnderecoController = require('../controllers/EnderecoController');
@@ -14,7 +16,6 @@ const AnimalController = require('../controllers/AnimalController');
 // const promoterMiddleware = require('../middlewares/promoter');
 
 const router = Router();
-// const upload = multer({ storage: storage });
 // const allUploads = upload.fields([{ name: 'photo', maxCount: 4 }]);
 
 // Rotas de Autenticacao
@@ -43,7 +44,8 @@ router.delete('/enderecos/:id', EnderecoController.destroy);
 // Rotas de Animais
 router.get('/pets', AnimalController.index);
 router.get('/pets/:id', AnimalController.show);
-router.post('/pets',validators.validateAnimal('create'), AnimalController.create);
+router.post('/pets',upload.single('foto'),validators.validateAnimal('create'), AnimalController.create);
+// router.post('/pets/photo/:id',upload.single('photo'), AnimalController.addPhoto);
 router.put('/pets/:id',validators.validateAnimal('update'), AnimalController.update);
 router.delete('/pets/:id', AnimalController.destroy);
 
